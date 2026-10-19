@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suraj Nayak – Principal Engineer, Site Reliability Engineering</title>
+<meta name="description" content="Suraj Nayak is a Principal Engineer, Site Reliability Engineering at DataBahn, Bengaluru. Kubernetes, Argo CD and cloud networking on AWS, GCP and Azure.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Suraj Nayak – Principal Engineer, Site Reliability Engineering">
+<meta property="og:description" content="Kubernetes, Argo CD and cloud networking on AWS, GCP and Azure.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231b1f24'/><circle cx='46' cy='18' r='6' fill='%233fb97a'/><text x='30' y='42' font-family='Arial' font-weight='700' font-size='24' fill='%23fff' text-anchor='middle'>SN</text></svg>">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Suraj Nayak","jobTitle":"Principal Engineer, Site Reliability Engineering","worksFor":{"@type":"Organization","name":"DataBahn"},"address":{"@type":"PostalAddress","addressLocality":"Bengaluru","addressCountry":"IN"},"alumniOf":"National Institute of Technology, Tiruchirappalli","email":"mailto:surajnayak88@gmail.com","sameAs":["https://www.linkedin.com/in/surajnayak88","https://github.com/surajnayak88"],"knowsAbout":["Kubernetes","Argo CD","Argo Rollouts","Site Reliability Engineering","Platform Engineering","Cloud Networking","Istio","Terraform","AWS","Google Cloud","Microsoft Azure","FinOps"],"hasCredential":["AWS Certified Solutions Architect – Professional","AWS Certified DevOps Engineer – Professional","Google Cloud Professional Cloud DevOps Engineer","Microsoft Certified: Azure Solutions Architect Expert","Certified Kubernetes Administrator","Certified Kubernetes Security Specialist","Istio Certified Associate"]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Tokens: graphite + paper; green is status only (Healthy, now), never decoration. */
+:root {
+  color-scheme: light dark;
+  --paper: light-dark(#f6f7f5, #121417);
+  --card: light-dark(#ffffff, #1a1d21);
+  --ink: light-dark(#1b1f24, #e9ebe7);
+  --muted: light-dark(#59606a, #a0a6ae);
+  --rule: light-dark(#d9dcd7, #2d3137);
+  --soft: light-dark(#eceeea, #22262b);
+  --ok: light-dark(#1a7f4b, #3fb97a);
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --pad: clamp(1.25rem, 4vw, 3.5rem);
+  --r: 12px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1.0625rem/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-underline-offset: .2em; text-decoration-thickness: 1px; }
+h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+.wrap { max-width: 1280px; margin-inline: auto; padding-inline: var(--pad); }
+.muted { color: var(--muted); }
+.skip { position: absolute; left: 1rem; top: -4rem; z-index: 99; background: var(--ink); color: var(--paper); padding: .6rem 1rem; border-radius: 99px; }
+.skip:focus { top: 1rem; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+
+/* header */
+header { position: sticky; top: 0; z-index: 50; background: color-mix(in oklab, var(--paper) 85%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid transparent; }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 4.5rem; }
+.brand { display: flex; align-items: center; gap: .65rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.mark { display: grid; place-items: center; width: 2.25rem; aspect-ratio: 1; border-radius: 9px; background: var(--ink); color: var(--paper); font-size: .8rem; font-weight: 700; }
+.nav { display: flex; gap: .15rem; }
+.nav a { position: relative; text-decoration: none; font-size: .925rem; padding: .45rem .8rem; color: var(--muted); transition: color .2s; }
+.nav a:hover { color: var(--ink); }
+.nav a::after { content: ""; position: absolute; left: .8rem; bottom: .1rem; width: 0; height: 2px; background: var(--ink); transition: width .25s; }
+.nav a[aria-current="true"] { color: var(--ink); }
+.nav a[aria-current="true"]::after { width: 1.25rem; }
+.head-right { display: flex; gap: .5rem; }
+.k-btn, .menu-btn { font: 500 .85rem var(--sans); color: var(--ink); background: var(--card); border: 1px solid var(--rule); border-radius: 99px; padding: .45rem .85rem; cursor: pointer; }
+.k-btn { font-family: var(--mono); color: var(--muted); }
+.menu-btn { display: none; }
+@media (max-width: 1100px) { .nav { display: none; } .menu-btn { display: block; } }
+@media (hover: none) { .k-btn { display: none; } }
+#menu { inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; border: 0; padding: var(--pad); background: var(--ink); color: var(--paper); }
+#menu ul { padding-top: 4rem; }
+#menu li a { display: block; padding: .9rem 0; border-bottom: 1px solid color-mix(in oklab, var(--paper) 18%, transparent); font-size: clamp(1.75rem, 8vw, 2.75rem); font-weight: 600; letter-spacing: -0.02em; text-decoration: none; }
+#menu .close { position: absolute; top: 1.2rem; right: var(--pad); font: 500 .9rem var(--sans); color: inherit; background: none; border: 1px solid currentColor; border-radius: 99px; padding: .45rem .9rem; cursor: pointer; }
+
+/* hero */
+.hero { display: grid; grid-template-columns: 1fr minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; min-height: min(calc(100svh - 4.5rem), 44rem); padding-block: 3rem 4rem; }
+.hero h1 { font-size: clamp(3rem, 7.5vw, 5.75rem); line-height: .95; letter-spacing: -0.035em; }
+.role { font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 500; margin-top: 1rem; }
+.lede { max-width: 34rem; margin-top: 1.25rem; color: var(--muted); font-size: 1.125rem; }
+.ctas { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 2rem; }
+.btn { display: inline-flex; align-items: center; padding: .8rem 1.3rem; border-radius: 99px; border: 1px solid var(--rule); background: var(--card); font-weight: 500; text-decoration: none; transition: border-color .2s; }
+.btn:hover { border-color: var(--ink); }
+.btn.primary { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.socials { display: flex; gap: 1.25rem; margin-top: 1.5rem; font-size: .95rem; }
+@media (max-width: 1100px) { .hero { grid-template-columns: 1fr; min-height: 0; padding-block: 2.5rem 4rem; } }
+
+/* terminal: the one signature element */
+.term { background: #0f1216; color: #d5d9df; border: 1px solid #262b31; border-radius: var(--r); box-shadow: 0 24px 60px -24px rgb(0 0 0 / .45); font: 400 .82rem/1.8 var(--mono); overflow: hidden; }
+.term-bar { display: flex; align-items: center; gap: .4rem; padding: .65rem .9rem; border-bottom: 1px solid #262b31; color: #8b939d; font-size: .75rem; }
+.term-bar i { width: .6rem; height: .6rem; border-radius: 50%; background: #343a42; }
+.term-bar span { margin-left: .4rem; }
+.term pre { margin: 0; padding: 1.1rem 1.25rem 1.3rem; overflow-x: auto; font: inherit; }
+.term .k { color: #8b939d; } .term .p { color: #8fb4ff; } .term .ok { color: #3fb97a; }
+.term .l { display: block; animation: show .01s both; animation-delay: calc(var(--i) * 110ms + 300ms); }
+@keyframes show { from { opacity: 0; } }
+.cursor { display: inline-block; width: .55em; height: 1.05em; background: #d5d9df; vertical-align: -.2em; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (max-width: 480px) { .term { font-size: .7rem; } }
+
+/* sections: one header pattern everywhere */
+section { padding-block: clamp(4rem, 9vw, 7rem); border-top: 1px solid var(--rule); }
+.sec-head { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 3rem; align-items: end; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.sec-head h2 { font-size: clamp(2rem, 4.2vw, 2.9rem); line-height: 1.05; }
+.sec-head p { color: var(--muted); max-width: 46ch; justify-self: end; }
+@media (max-width: 800px) { .sec-head { grid-template-columns: 1fr; } .sec-head p { justify-self: start; } }
+
+/* about */
+.bring { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 clamp(1.5rem, 3vw, 2.5rem); }
+.bring li { padding-block: 1.25rem 1.75rem; border-top: 1px solid var(--rule); }
+.bring h3 { font-size: 1.15rem; margin-bottom: .4rem; }
+.bring p { color: var(--muted); font-size: .975rem; }
+.bring .where { margin-top: .6rem; font-size: .875rem; font-weight: 500; color: var(--ink); }
+@media (max-width: 1000px) { .bring { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .bring { grid-template-columns: 1fr; } }
+
+/* DataBahn */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--rule); margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+.stats div { padding: 1.5rem 1.5rem 1.5rem 0; }
+.stats div + div { padding-left: 1.5rem; border-left: 1px solid var(--rule); }
+.stats strong { display: block; font-size: clamp(2.25rem, 4.5vw, 3.25rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.stats span { display: block; margin-top: .5rem; color: var(--muted); font-size: .95rem; }
+@media (max-width: 800px) { .stats { grid-template-columns: 1fr 1fr; } .stats div:nth-child(3) { padding-left: 0; border-left: 0; } .stats div:nth-child(n+3) { border-top: 1px solid var(--rule); } }
+.db-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 clamp(1.5rem, 3vw, 2.5rem); }
+.db-list li { padding-block: 1.25rem 1.75rem; border-top: 1px solid var(--rule); }
+.db-list h3 { font-size: 1.1rem; margin-bottom: .4rem; }
+.db-list p { color: var(--muted); font-size: .975rem; }
+@media (max-width: 1000px) { .db-list { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .db-list { grid-template-columns: 1fr; } }
+
+/* work cards */
+.work { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: var(--r); padding: clamp(1.5rem, 3vw, 2rem); display: grid; grid-template-rows: auto 1fr auto; gap: .9rem; transition: border-color .2s; }
+.card:hover { border-color: var(--ink); }
+.card h3 { font-size: 1.35rem; line-height: 1.2; }
+.card .at { display: block; margin-top: .25rem; font-size: .95rem; font-weight: 400; color: var(--muted); letter-spacing: 0; }
+.case { display: grid; align-content: start; gap: .6rem; color: var(--muted); font-size: .975rem; }
+.case b { color: var(--ink); font-weight: 600; }
+.job li { position: relative; padding-left: 1rem; }
+.job li::before { content: ""; position: absolute; left: 0; top: .7em; width: .35rem; height: 1px; background: var(--ink); }
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .25rem; }
+.tags span { font-size: .8rem; padding: .2rem .6rem; border-radius: 99px; background: var(--soft); color: var(--muted); }
+@media (max-width: 800px) { .work { grid-template-columns: 1fr; } }
+
+/* experience: a real sequence, so it gets a timeline */
+.timeline { border-left: 1px solid var(--rule); margin-left: .4rem; }
+.job { position: relative; display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: .5rem 2.5rem; padding: 0 0 3rem clamp(1.25rem, 3vw, 2.5rem); }
+.job::before { content: ""; position: absolute; left: -.4rem; top: .45rem; width: .8rem; height: .8rem; border-radius: 50%; background: var(--paper); border: 2px solid var(--ink); }
+.job.now::before { background: var(--ok); border-color: var(--ok); }
+.job:last-child { padding-bottom: 0; }
+.when { font-variant-numeric: tabular-nums; font-weight: 500; }
+.ctx { color: var(--muted); font-size: .925rem; margin-top: .2rem; }
+.job h3 { font-size: 1.3rem; line-height: 1.25; }
+.job .co { color: var(--muted); margin-top: .15rem; }
+.job ul { display: grid; gap: .55rem; margin-top: 1rem; color: var(--muted); max-width: 68ch; }
+.job b { color: var(--ink); font-weight: 600; }
+.job .tags { margin-top: 1rem; }
+.edu { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); }
+.edu strong { font-weight: 600; }
+@media (max-width: 800px) { .job { grid-template-columns: 1fr; } }
+
+/* skills: periodic table */
+.filters { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.5rem; }
+.filters button { font: 500 .875rem var(--sans); color: var(--muted); background: transparent; border: 1px solid var(--rule); border-radius: 99px; padding: .45rem .9rem; cursor: pointer; }
+.filters button sup { font-size: .65rem; margin-left: .2rem; }
+.filters button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.table-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 20rem; gap: 2rem; align-items: start; }
+.table { display: grid; grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr)); gap: .5rem; }
+.el { position: relative; aspect-ratio: 1; display: grid; place-content: center; text-align: center; padding: .4rem; font: inherit; color: inherit; background: var(--card); border: 1px solid var(--rule); border-top: 3px solid var(--c); border-radius: 8px; cursor: pointer; transition: border-color .2s; }
+.el:hover { border-color: var(--ink); border-top-color: var(--c); }
+.el[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); border-top-color: var(--c); }
+.el[hidden] { display: none; }
+.el .s { font-size: 1.6rem; font-weight: 600; line-height: 1; letter-spacing: -0.02em; }
+.el .nm { font-size: .7rem; margin-top: .35rem; line-height: 1.2; opacity: .8; }
+.detail { position: sticky; top: 6rem; background: var(--card); border: 1px solid var(--rule); border-radius: var(--r); padding: 1.5rem; }
+.detail .big { display: grid; place-items: center; width: 4.5rem; aspect-ratio: 1; border-radius: 10px; background: var(--ink); color: var(--paper); font-size: 2rem; font-weight: 600; margin-bottom: 1rem; }
+.detail h3 { font-size: 1.5rem; }
+.detail .cat { color: var(--muted); font-size: .9rem; margin: .15rem 0 1rem; }
+.detail .used { font-size: .9rem; font-weight: 600; margin-bottom: .4rem; }
+.detail li { color: var(--muted); font-size: .95rem; padding-block: .45rem; border-top: 1px solid var(--rule); }
+@media (max-width: 900px) { .table-wrap { grid-template-columns: 1fr; } .detail { position: static; } }
+
+/* certifications */
+.certs { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(1.5rem, 4vw, 3rem); }
+.certs h3 { font-size: 1rem; color: var(--muted); font-weight: 500; padding-bottom: .75rem; }
+.certs li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding-block: 1rem; border-top: 1px solid var(--rule); font-weight: 500; }
+.certs li span { color: var(--muted); font-size: .875rem; font-weight: 400; white-space: nowrap; }
+@media (max-width: 800px) { .certs { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* contact */
+.contact { background: light-dark(#1b1f24, #1a1d21); color: #e9ebe7; border-top: 1px solid var(--rule); padding-block: clamp(2.5rem, 5vw, 3.5rem); }
+.contact-row { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem clamp(2rem, 6vw, 5rem); align-items: center; }
+.contact h2 { font-size: clamp(1.75rem, 3.5vw, 2.4rem); line-height: 1.05; }
+.contact-row > div > p { color: #a0a6ae; margin-top: .4rem; }
+.contact-main { justify-self: end; display: grid; gap: .75rem; }
+.email { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; }
+.email a { font-size: clamp(1.25rem, 3vw, 2rem); font-weight: 600; letter-spacing: -0.02em; text-decoration: none; overflow-wrap: anywhere; }
+.email a:hover { text-decoration: underline; }
+.copy { font: 500 .85rem var(--sans); color: inherit; background: none; border: 1px solid currentColor; border-radius: 99px; padding: .4rem .95rem; cursor: pointer; }
+.links { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; font-size: .95rem; }
+.links a { color: #c9ced4; text-underline-offset: .25em; }
+.links a:hover { color: #fff; }
+.contact :focus-visible { outline-color: #e9ebe7; }
+@media (max-width: 800px) { .contact-row { grid-template-columns: 1fr; } .contact-main { justify-self: start; } }
+footer .wrap { display: flex; justify-content: space-between; gap: 1rem; padding-block: 1.75rem; font-size: .9rem; color: var(--muted); }
+footer a { text-decoration: none; }
+
+/* command palette */
+#k { width: min(34rem, calc(100% - 2rem)); margin: 14vh auto auto; padding: 0; border: 1px solid var(--rule); border-radius: var(--r); background: var(--card); color: var(--ink); box-shadow: 0 40px 80px -20px rgb(0 0 0 / .4); }
+#k::backdrop { background: rgb(0 0 0 / .35); }
+#k input { width: 100%; font: 400 1.05rem var(--sans); color: inherit; background: none; border: 0; border-bottom: 1px solid var(--rule); padding: 1rem 1.2rem; outline: none; }
+#k ul { max-height: 50vh; overflow: auto; padding: .4rem; }
+#k li button { width: 100%; display: flex; justify-content: space-between; gap: 1rem; text-align: left; font: 500 .95rem var(--sans); color: inherit; background: none; border: 0; border-radius: 8px; padding: .7rem .85rem; cursor: pointer; }
+#k li button span { color: var(--muted); font-weight: 400; font-size: .85rem; }
+#k li button:hover, #k li button:focus-visible, #k li button.first { background: var(--soft); outline: none; }
+#k li[hidden] { display: none; }
+#k .hint { padding: .6rem 1.2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .85rem; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true">SN</span><span>Suraj Nayak</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#databahn">DataBahn</a>
+      <a href="#experience">Experience</a>
+      <a href="#work">Work</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="head-right">
+      <button class="k-btn" id="k-open" aria-label="⌘K command menu" aria-keyshortcuts="Meta+K Control+K">⌘K</button>
+      <button class="menu-btn" popovertarget="menu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<div id="menu" popover>
+  <button class="close" popovertarget="menu" popovertargetaction="hide">Close</button>
+  <nav aria-label="Mobile">
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#databahn">DataBahn</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</div>
+
+<main id="main">
+  <div class="wrap hero" id="top">
+    <div>
+      <h1>Suraj Nayak</h1>
+      <p class="role">Principal Engineer, Site Reliability Engineering at DataBahn</p>
+      <p class="lede">I run reliability and releases for a Kubernetes platform that ships as SaaS, into customer clouds and on-prem. Ten years on AWS, GCP and Azure, before DataBahn at Roku, AiDash, Cargill and Microland.</p>
+      <div class="ctas">
+        <a class="btn primary" href="mailto:surajnayak88@gmail.com">Email me</a>
+        <a class="btn" href="Suraj_Nayak.pdf" download>Download résumé</a>
+        <a class="btn" href="#databahn">See DataBahn work</a>
+      </div>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/surajnayak88" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/surajnayak88" target="_blank" rel="noopener">GitHub</a>
+        <span class="muted">Bengaluru, India</span>
+      </div>
+    </div>
+    <div class="term" role="img" aria-label="Terminal summary: Suraj Nayak, Principal Engineer SRE at DataBahn. 10+ years. Expert in Kubernetes, Argo CD, Argo Rollouts and cloud networking. Certified AWS Solutions Architect Professional, GCP DevOps Professional, Azure Solutions Architect Expert, CKA, CKS and ICA. Status healthy.">
+      <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>kubectl</span></div>
+<pre aria-hidden="true"><span class="l" style="--i:0"><span class="p">$</span> kubectl describe engineer suraj-nayak</span><span class="l" style="--i:1"><span class="k">Name:</span>        Suraj Nayak</span><span class="l" style="--i:2"><span class="k">Role:</span>        Principal Engineer, SRE</span><span class="l" style="--i:3"><span class="k">Company:</span>     DataBahn</span><span class="l" style="--i:4"><span class="k">Experience:</span>  10+ years</span><span class="l" style="--i:5"><span class="k">Previously:</span>  Roku, AiDash, Cargill, Microland</span><span class="l" style="--i:6"><span class="k">Expertise:</span>   Kubernetes, Argo CD, Argo Rollouts,</span><span class="l" style="--i:7">             cloud networking, service mesh</span><span class="l" style="--i:8"><span class="k">Certified:</span>   AWS SA Pro, GCP DevOps Pro, Azure SA Expert,</span><span class="l" style="--i:9">             CKA, CKS, ICA</span><span class="l" style="--i:10"><span class="k">Status:</span>      <span class="ok">● Healthy  Synced</span></span><span class="l" style="--i:11"><span class="p">$</span> <span class="cursor"></span></span></pre>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head"><h2>What I bring</h2><p>Each role added a layer. Consulting gave me breadth, Cargill taught me uptime, AiDash taught me cost and team leadership, and Roku taught me scale. At DataBahn I use all of it on one platform.</p></div>
+      <ul class="bring">
+        <li><h3>Reliability and incident response</h3><p>Incident command, blameless RCAs, DR runbooks, chaos exercises and high-availability design. Observability with Prometheus, Grafana, OpenTelemetry and eBPF.</p><p class="where">DataBahn, Roku, Cargill</p></li>
+        <li><h3>Kubernetes and GitOps</h3><p>Multi-cluster EKS, AKS and GKE fleets. Argo CD, Argo Rollouts, Helm, progressive delivery and policy as code with OPA Gatekeeper.</p><p class="where">DataBahn, Roku, AiDash</p></li>
+        <li><h3>Cloud networking and security</h3><p>Istio mTLS and zone-aware routing, workload identity in place of keys, static ingress for allowlists, and single sign-on for platform tools.</p><p class="where">DataBahn, Roku</p></li>
+        <li><h3>Developer platforms</h3><p>Backstage portals, golden-path templates, standard pipelines and DORA metrics, so teams ship without waiting on a platform ticket.</p><p class="where">DataBahn, Cargill, AiDash</p></li>
+        <li><h3>Cost and capacity</h3><p>FinOps audits, per-team cost visibility, budget guardrails, and autoscaling with Karpenter, KEDA and spot capacity.</p><p class="where">DataBahn, AiDash, Cargill</p></li>
+        <li><h3>Technical leadership</h3><p>Set architecture direction across squads and lead teams through large migrations, from data-centre exits to service-mesh rollouts.</p><p class="where">DataBahn, AiDash, Roku</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="databahn">
+    <div class="wrap">
+      <div class="sec-head"><h2>Now at DataBahn</h2><p>I lead Site Reliability Engineering for DataBahn, a security data pipeline platform.</p></div>
+      <div class="stats">
+        <div><strong>150+</strong><span>engineers on the platform I own</span></div>
+        <div><strong>40+</strong><span>Kubernetes clusters</span></div>
+        <div><strong>8</strong><span>squads shipping on it</span></div>
+        <div><strong>3</strong><span>deployment models: SaaS, customer cloud, on-prem</span></div>
+      </div>
+      <ul class="db-list">
+        <li><h3>Platform V2</h3><p>Designed and led an event-driven platform on Apache Pulsar. Cascading failures fell by 35%.</p></li>
+        <li><h3>One release path</h3><p>Standard GitOps release workflow: release and hotfix branches mint tags, and Argo CD rolls them out to every deployment model. With 5 core services decomposed, cross-team coordination overhead halved.</p></li>
+        <li><h3>Delivery metrics</h3><p>DORA tracking across 8 squads showed each team its bottlenecks within 30 days. Mean lead time dropped 40%.</p></li>
+        <li><h3>Environments on demand</h3><p>Set direction for APISIX, Camunda, Pulumi and Terraform. Provisioning went from hours to under 15 minutes.</p></li>
+        <li><h3>Developer portal</h3><p>Built and shipped Backstage, backed by a git catalog of services, clusters and owners that a Python generator keeps current.</p></li>
+        <li><h3>Observability and Kafka</h3><p>eBPF observability for the cloud fleet and a self-hosted Prometheus stack for customer clouds. Tuned Kafka brokers and stopped consumer autoscaling from flapping.</p></li>
+        <li><h3>Cost audit</h3><p>Led a fleet-wide cost audit across AWS and Azure that sized double-digit savings, then retired idle capacity through Terraform.</p></li>
+        <li><h3>Networking and access</h3><p>Static-IP ingress for customer allowlists and Entra ID single sign-on for platform tools, both in Terraform.</p></li>
+        <li><h3>Incident command</h3><p>Lead incident response and write blameless RCAs that end in a platform fix, not only a runbook.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head"><h2>Experience</h2><p>From enterprise cloud migrations to reliability at fleet scale.</p></div>
+      <div class="timeline">
+        <article class="job now">
+          <div><p class="when">05/2026 – Present</p><p class="ctx">Security data pipeline</p></div>
+          <div>
+            <h3>Principal Engineer, Site Reliability Engineering</h3>
+            <p class="co">DataBahn</p>
+            <ul><li>Platform, release engineering and reliability for the whole engineering org. <a href="#databahn">See Now at DataBahn</a>.</li></ul>
+            <div class="tags"><span>Argo CD</span><span>Kubernetes</span><span>Terraform</span><span>Pulsar</span><span>Kafka</span><span>Backstage</span></div>
+          </div>
+        </article>
+        <article class="job">
+          <div><p class="when">02/2024 – 05/2026</p><p class="ctx">Streaming, about $4B revenue. Senior platform IC.</p></div>
+          <div>
+            <h3>Senior Software Engineer, Platform &amp; Infrastructure</h3>
+            <p class="co">Roku</p>
+            <ul>
+              <li><b>Cross-zone traffic:</b> Istio locality load balancing saved about 35% on inter-zone transfer, with P99 under 5 ms in each zone.</li>
+              <li><b>Workload Identity Federation</b> across EKS and GKE removed all long-lived service-account keys and shrank the credential exposure surface by 80%.</li>
+              <li><b>Mesh migration:</b> moved 50+ services from Nginx Ingress to Istio with mTLS, circuit breakers and retries. Removed 3 classes of network incident and cut mesh-related errors by 72%.</li>
+              <li><b>Onboarding:</b> a standard pipeline lets 12 teams join the mesh in 1 day instead of 2 weeks.</li>
+              <li><b>Progressive delivery:</b> rollback takes 3 minutes, down from 25. A 6-month audit found zero policy violations. Tracing brought MTTR down 60%.</li>
+            </ul>
+            <div class="tags"><span>Istio</span><span>Argo CD</span><span>Argo Rollouts</span><span>OPA Gatekeeper</span><span>OpenTelemetry</span><span>Workload identity</span></div>
+          </div>
+        </article>
+        <article class="job">
+          <div><p class="when">02/2022 – 02/2024</p><p class="ctx">Climate-tech SaaS. Led a team of 6.</p></div>
+          <div>
+            <h3>Staff Engineer, Cloud Platform</h3>
+            <p class="co">AiDash</p>
+            <ul>
+              <li>Led a full data-centre exit to EKS and AKS with <b>zero SLA breaches</b> over 12 months.</li>
+              <li>Split 3 monoliths into <b>20+ microservices</b>. Releases went from every two weeks to daily, with zero downtime.</li>
+              <li>Autoscaling, spot capacity and utilisation dashboards lowered cloud spend by <b>30%, about $120K a year</b>.</li>
+              <li>A shared Terraform library and standard pipelines for 6 teams brought service onboarding from 3 weeks to <b>2 days</b>.</li>
+            </ul>
+            <div class="tags"><span>AWS</span><span>Azure</span><span>Terraform</span><span>KEDA</span><span>Docker</span><span>Grafana</span></div>
+          </div>
+        </article>
+        <article class="job">
+          <div><p class="when">11/2019 – 02/2022</p><p class="ctx">Fortune 500 agri-enterprise</p></div>
+          <div>
+            <h3>Cloud Engineer, Platform &amp; IDP</h3>
+            <p class="co">Cargill</p>
+            <ul>
+              <li>Contributed to <b>Captain</b>, a self-service deploy portal that took developers to production without SRE help. Across 15 teams, manual tickets dropped 80% and deploys got 65% faster.</li>
+              <li>Met a <b>99.99% SLA</b> with automated failover, DR runbooks and chaos exercises. Zero breaches in 18 months.</li>
+              <li>Autoscaling and rate limiting saved <b>20% of AWS spend, about $80K a year</b>. Automation removed 90% of daily toil.</li>
+            </ul>
+            <div class="tags"><span>AWS</span><span>Backstage</span><span>GitHub Actions</span><span>Chaos engineering</span><span>Python</span></div>
+          </div>
+        </article>
+        <article class="job">
+          <div><p class="when">07/2016 – 11/2019</p><p class="ctx">IT services and cloud consulting</p></div>
+          <div>
+            <h3>Cloud Solution Architect</h3>
+            <p class="co">Microland</p>
+            <ul>
+              <li>Ran Kubernetes migrations and lifecycle for <b>10+ enterprise clients</b> on EKS. The IaC-first standards I delivered were adopted practice-wide.</li>
+              <li>Built a central observability stack with <b>40%</b> less alert noise. Its proofs of concept won <b>3 strategic accounts</b>.</li>
+            </ul>
+            <div class="tags"><span>Kubernetes</span><span>AWS</span><span>Prometheus and Thanos</span><span>Grafana</span><span>EFK and CloudWatch</span></div>
+          </div>
+        </article>
+      </div>
+      <div class="edu">
+        <p><strong>B.Tech, Computer Science Engineering</strong></p>
+        <p class="muted">NIT Trichy, First Class, 2012–2016</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head"><h2>Selected initiatives</h2><p>Four platform problems, what I did about each, and the result.</p></div>
+      <div class="work">
+        <article class="card">
+          <h3>Multi-cluster GitOps platform<span class="at">Roku</span></h3>
+          <div class="case">
+            <p><b>Problem.</b> 12 Kubernetes clusters across 3 AWS regions and GCP had to stay in sync and keep a SOC 2 audit trail.</p>
+            <p><b>What I did.</b> Built one GitOps control plane with drift detection and self-healing, and progressive promotion from dev to staging to prod with ApplicationSets.</p>
+            <p><b>Result.</b> Deployment failure rate under 0.5%, with every change on record.</p>
+          </div>
+          <div class="tags"><span>Argo CD</span><span>Terraform</span><span>EKS</span><span>GKE</span><span>OPA Gatekeeper</span></div>
+        </article>
+        <article class="card">
+          <h3>LaunchPad developer portal<span class="at">Cargill</span></h3>
+          <div class="case">
+            <p><b>Problem.</b> A new service took 3 weeks to reach production, and platform work arrived as manual requests.</p>
+            <p><b>What I did.</b> A self-service portal with 8 golden-path templates, plus Kubernetes health, cost attribution and DORA metrics in one catalog.</p>
+            <p><b>Result.</b> Time to production fell to 4 hours. Manual platform requests fell by 90%.</p>
+          </div>
+          <div class="tags"><span>Backstage</span><span>GitHub Actions</span><span>Terraform</span><span>Python</span></div>
+        </article>
+        <article class="card">
+          <h3>FinOps automation engine<span class="at">AiDash</span></h3>
+          <div class="case">
+            <p><b>Problem.</b> Idle resources and unexpected cost spikes across 3 organisations.</p>
+            <p><b>What I did.</b> Event-driven cost governance with anomaly detection, OPA budget guardrails and per-team dashboards.</p>
+            <p><b>Result.</b> Idle resource spend fell 35% within 60 days.</p>
+          </div>
+          <div class="tags"><span>Python</span><span>AWS Cost Explorer</span><span>CAST AI</span><span>Grafana</span></div>
+        </article>
+        <article class="card">
+          <h3>AI-assisted incident response<span class="at">DataBahn</span></h3>
+          <div class="case">
+            <p><b>Problem.</b> Slow alert triage and a heavy on-call load.</p>
+            <p><b>What I did.</b> An AI SRE agent that links alerts to runbooks and opens Jira incidents with root-cause hypotheses, plus a read-only AI change-watcher across about 100 production apps.</p>
+            <p><b>Result.</b> Triage is 55% faster and on-call fatigue is down 40%. Three platform teams use it as their main on-call tool.</p>
+          </div>
+          <div class="tags"><span>Python</span><span>LLM APIs</span><span>PagerDuty</span><span>Prometheus</span><span>Jira</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications">
+    <div class="wrap">
+      <div class="sec-head"><h2>Certifications</h2><p>Top-tier certified on all three major clouds, plus Kubernetes and Istio.</p></div>
+      <div class="certs">
+        <div>
+          <h3>Cloud</h3>
+          <ul>
+            <li>AWS Certified Solutions Architect – Professional<span>AWS</span></li>
+            <li>AWS Certified DevOps Engineer – Professional<span>AWS</span></li>
+            <li>Professional Cloud DevOps Engineer<span>Google Cloud</span></li>
+            <li>Azure Solutions Architect Expert (AZ-305)<span>Microsoft</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Kubernetes and service mesh</h3>
+          <ul>
+            <li>Certified Kubernetes Administrator (CKA)<span>CNCF</span></li>
+            <li>Certified Kubernetes Security Specialist (CKS)<span>CNCF</span></li>
+            <li>Istio Certified Associate (ICA)<span>CNCF</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head"><h2>Skills</h2><p>Select a tool to see where I have used it.</p></div>
+      <div class="filters" role="group" aria-label="Filter skills">
+        <button aria-pressed="true" data-f="all">All</button>
+        <button aria-pressed="false" data-f="delivery">Delivery</button>
+        <button aria-pressed="false" data-f="cloud">Cloud and infrastructure</button>
+        <button aria-pressed="false" data-f="mesh">Networking and security</button>
+        <button aria-pressed="false" data-f="obs">Observability</button>
+        <button aria-pressed="false" data-f="rel">Reliability</button>
+        <button aria-pressed="false" data-f="lang">Languages</button>
+      </div>
+      <div class="table-wrap">
+        <div class="table" id="table" role="listbox" aria-label="Skills"></div>
+        <aside class="detail" aria-live="polite">
+          <div class="big" id="d-sym"></div>
+          <h3 id="d-name"></h3>
+          <p class="cat" id="d-meta"></p>
+          <p class="used">Where I used it</p>
+          <ul id="d-used"></ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap contact-row">
+      <div><h2>Contact</h2><p>Email is the fastest way to reach me.</p></div>
+      <div class="contact-main">
+        <div class="email">
+          <a href="mailto:surajnayak88@gmail.com">surajnayak88@gmail.com</a>
+          <button class="copy" id="copy" data-email="surajnayak88@gmail.com">Copy</button>
+        </div>
+        <div class="links">
+          <a href="https://www.linkedin.com/in/surajnayak88" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/surajnayak88" target="_blank" rel="noopener">GitHub</a>
+          <a href="tel:+918884455501">+91 88844 55501</a>
+          <a href="Suraj_Nayak.pdf" download>Download résumé</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<dialog id="k" aria-label="Command menu">
+  <input id="k-q" type="search" placeholder="Search sections and actions" aria-label="Search commands" autocomplete="off">
+  <ul id="k-list">
+    <li><button data-go="#about">What I bring <span>Section</span></button></li>
+    <li><button data-go="#databahn">Now at DataBahn <span>Section</span></button></li>
+    <li><button data-go="#experience">Experience <span>Section</span></button></li>
+    <li><button data-go="#work">Selected initiatives <span>Section</span></button></li>
+    <li><button data-go="#certifications">Certifications <span>Section</span></button></li>
+    <li><button data-go="#skills">Skills <span>Section</span></button></li>
+    <li><button data-go="#contact">Contact <span>Section</span></button></li>
+    <li><button data-act="copy">Copy email address <span>Action</span></button></li>
+    <li><button data-href="Suraj_Nayak.pdf">Download résumé <span>Action</span></button></li>
+    <li><button data-href="https://www.linkedin.com/in/surajnayak88">Open LinkedIn <span>Link</span></button></li>
+    <li><button data-href="https://github.com/surajnayak88">Open GitHub <span>Link</span></button></li>
+  </ul>
+  <p class="hint">Enter runs the first match. Esc closes.</p>
+</dialog>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Suraj Nayak</span>
+    <a href="#top">Back to top</a>
+  </div>
+</footer>
+
+<script>
+// [symbol, name, category, where it was used...] — places only; metrics live in the sections above
+const S = [
+  ["Ar","Argo CD","delivery","Release and hotfix rollouts to every dataplane at DataBahn","Multi-cluster GitOps control plane at Roku"],
+  ["Ro","Argo Rollouts","delivery","Canary and blue-green delivery at Roku"],
+  ["Gi","GitOps and CI/CD","delivery","Standard release workflows at DataBahn","Shared pipelines at AiDash"],
+  ["Hm","Helm and Kustomize","delivery","Service mesh onboarding templates at Roku"],
+  ["Bs","Backstage","delivery","Developer portal at DataBahn","LaunchPad portal at Cargill"],
+  ["Gh","GitHub Actions","delivery","Standard pipelines in the LaunchPad portal at Cargill"],
+  ["Sl","Spacelift","delivery","Terraform runs for cloud infrastructure at DataBahn"],
+  ["Do","DORA metrics","delivery","Delivery tracking across squads at DataBahn"],
+  ["K8","Kubernetes","cloud","EKS and AKS fleet at DataBahn","EKS and GKE at Roku","Client migrations at Microland"],
+  ["Aw","AWS","cloud","Multi-account fleet at DataBahn","Data-centre exit at AiDash","Autoscaling and rate limiting at Cargill","EKS client migrations at Microland"],
+  ["Gc","Google Cloud","cloud","GKE with workload identity at Roku"],
+  ["Az","Azure","cloud","AKS clusters at DataBahn","Data-centre exit to AKS at AiDash"],
+  ["Tf","Terraform","cloud","Cloud infrastructure and Entra ID SSO at DataBahn","Shared module library at AiDash"],
+  ["Pu","Pulsar","cloud","Event-driven Platform V2 at DataBahn"],
+  ["Pm","Pulumi","cloud","Environment provisioning at DataBahn"],
+  ["Kf","Kafka","cloud","Broker tuning and consumer autoscaling at DataBahn"],
+  ["Ka","Karpenter","cloud","Node provisioning for EKS at DataBahn"],
+  ["Ke","KEDA","cloud","Consumer-lag autoscaling at DataBahn","Autoscaling controls at AiDash"],
+  ["Dk","Docker","cloud","Monolith-to-microservices move at AiDash"],
+  ["Nw","Cloud networking","mesh","Load balancers, static egress and customer allowlists at DataBahn","Zone-aware routing at Roku"],
+  ["Is","Istio and Envoy","mesh","Mesh migration from Nginx Ingress at Roku"],
+  ["Wi","Workload identity","mesh","Keyless workload auth across EKS and GKE at Roku"],
+  ["Op","OPA Gatekeeper","mesh","Admission policies at Roku","Budget guardrails in the AiDash FinOps engine"],
+  ["Vt","SOPS and Vault","mesh","Secrets for GitOps repositories"],
+  ["Ds","DevSecOps","mesh","mTLS, policy as code and keyless auth at Roku"],
+  ["Pr","Prometheus and Thanos","obs","Self-hosted metrics for customer-cloud clusters at DataBahn","Alert source for the AI incident agent","Long-term metrics with Thanos at Microland"],
+  ["Gf","Grafana","obs","Customer-cloud dashboards at DataBahn","Per-team cost dashboards at AiDash","Central observability stack at Microland"],
+  ["Ot","OpenTelemetry","obs","Distributed tracing at Roku"],
+  ["Gr","groundcover","obs","eBPF observability for the cloud fleet at DataBahn"],
+  ["Ef","EFK and CloudWatch","obs","Central logging stack at Microland"],
+  ["Sr","SRE","rel","Leading Site Reliability Engineering at DataBahn","Failover and DR runbooks at Cargill"],
+  ["Ch","Chaos engineering","rel","Game days and chaos exercises at Cargill"],
+  ["Fo","FinOps","rel","Fleet cost audit at DataBahn","FinOps automation engine at AiDash"],
+  ["Py","Python","lang","Portal catalog generator at DataBahn","FinOps engine and AI incident agent","Toil automation at Cargill"],
+  ["Go","Go","lang","Platform tooling and Kubernetes automation"],
+];
+const CAT = { delivery:["Delivery","#2f6fdb"], cloud:["Cloud and infrastructure","#c27a12"], mesh:["Networking and security","#b4387a"], obs:["Observability","#6b7280"], rel:["Reliability","#7650d6"], lang:["Languages","#0e8fa8"] };
+const table = document.getElementById("table");
+const $ = id => document.getElementById(id);
+
+table.innerHTML = S.map(([s, n, c], i) =>
+  `<button class="el" role="option" aria-selected="false" data-i="${i}" data-c="${c}" style="--c:${CAT[c][1]}"><span class="s">${s}</span><span class="nm">${n}</span></button>`).join("");
+
+function show(i) {
+  const [s, n, c, ...used] = S[i];
+  table.querySelectorAll(".el").forEach(el => el.setAttribute("aria-selected", el.dataset.i == i));
+  $("d-sym").textContent = s;
+  $("d-name").textContent = n;
+  $("d-meta").textContent = CAT[c][0];
+  $("d-used").innerHTML = used.map(u => `<li>${u}</li>`).join("");
+}
+table.addEventListener("click", e => { const el = e.target.closest(".el"); if (el) show(+el.dataset.i); });
+show(0);
+
+document.querySelectorAll(".filters button").forEach(b => {
+  const f = b.dataset.f;
+  b.insertAdjacentHTML("beforeend", `<sup>${f === "all" ? S.length : S.filter(x => x[2] === f).length}</sup>`);
+  b.addEventListener("click", () => {
+    document.querySelectorAll(".filters button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    const go = () => {
+      table.querySelectorAll(".el").forEach(el => el.hidden = f !== "all" && el.dataset.c !== f);
+      show(+table.querySelector(".el:not([hidden])").dataset.i);
+    };
+    document.startViewTransition ? document.startViewTransition(go) : go();
+  });
+});
+
+$("copy").addEventListener("click", async e => {
+  try { await navigator.clipboard.writeText(e.target.dataset.email); e.target.textContent = "Copied"; }
+  catch { e.target.textContent = "Copy failed. Select the address instead."; }
+  setTimeout(() => e.target.textContent = "Copy", 2000);
+});
+
+// close the mobile menu after a link is chosen
+$("menu").addEventListener("click", e => { if (e.target.closest("a")) $("menu").hidePopover(); });
+
+// highlight the nav link for the section in view
+const links = [...document.querySelectorAll(".nav a")];
+const io = new IntersectionObserver(entries => entries.forEach(en => {
+  if (en.isIntersecting) links.forEach(a => a.setAttribute("aria-current", a.hash === "#" + en.target.id));
+}), { rootMargin: "-45% 0px -50% 0px" });
+document.querySelectorAll("section[id]").forEach(s => io.observe(s));
+
+// command palette
+const k = $("k"), q = $("k-q"), items = [...k.querySelectorAll("li")];
+const openK = () => { q.value = ""; filterK(); k.showModal(); };
+function filterK() {
+  const t = q.value.trim().toLowerCase();
+  items.forEach(li => li.hidden = !li.textContent.toLowerCase().includes(t));
+  items.forEach(li => li.querySelector("button").classList.remove("first"));
+  items.find(li => !li.hidden)?.querySelector("button").classList.add("first");
+}
+function runK(b) {
+  k.close();
+  if (b.dataset.go) document.querySelector(b.dataset.go).scrollIntoView();
+  else if (b.dataset.act === "copy") $("copy").click();
+  else if (b.dataset.href.startsWith("http")) open(b.dataset.href, "_blank", "noopener");
+  else location.href = b.dataset.href;
+}
+$("k-open").addEventListener("click", openK);
+addEventListener("keydown", e => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); k.open ? k.close() : openK(); } });
+q.addEventListener("input", filterK);
+q.addEventListener("keydown", e => { if (e.key === "Enter") { const b = k.querySelector(".first"); if (b) runK(b); } });
+k.addEventListener("click", e => { const b = e.target.closest("li button"); if (b) runK(b); else if (e.target === k) k.close(); });
+</script>
+</body>
+</html>
