@@ -278,7 +278,7 @@ footer a { text-decoration: none; }
     <div>
       <h1>Suraj Nayak</h1>
       <p class="role">Principal Engineer, Site Reliability Engineering at DataBahn</p>
-      <p class="lede">I set platform and reliability direction for DataBahn’s engineering org: one release path, one observability stack and one incident practice for a Kubernetes platform that ships as SaaS, into customer clouds and on-prem. Ten years on AWS, GCP and Azure, before DataBahn at Roku, AiDash, Cargill and Microland.</p>
+      <p class="lede">I set platform and reliability direction for DataBahn’s engineering org: one release path and one incident practice for a Kubernetes platform that ships as SaaS, into customer clouds and on-prem. Ten years on AWS, GCP and Azure, before DataBahn at Roku, AiDash, Cargill and Microland.</p>
       <div class="ctas">
         <a class="btn primary" href="mailto:surajnayak88@gmail.com">Email me</a>
         <a class="btn" href="Suraj_Nayak.pdf" download>Download résumé</a>
@@ -321,7 +321,7 @@ footer a { text-decoration: none; }
       </div>
       <ul class="db-list">
         <li><h3>Platform V2</h3><p>Designed and led an event-driven platform on Apache Pulsar. Cascading failures fell by 35%.</p></li>
-        <li><h3>One release path</h3><p>Standard GitOps release workflow: release and hotfix branches mint tags, and Argo CD rolls them out to every deployment model. With 5 core services decomposed, cross-team coordination overhead halved.</p></li>
+        <li><h3>One release path</h3><p>Standardised GitOps releases across all squads. With 5 core services decomposed, cross-team coordination overhead halved.</p></li>
         <li><h3>Delivery metrics</h3><p>DORA tracking across 8 squads showed each team its bottlenecks within 30 days. Mean lead time dropped 40%.</p></li>
         <li><h3>Environments on demand</h3><p>Set direction for APISIX, Camunda, Pulumi and Terraform. Provisioning went from hours to under 15 minutes.</p></li>
         <li><h3>Developer portal</h3><p>Built and shipped Backstage, backed by a git catalog of services, clusters and owners that a Python generator keeps current.</p></li>
@@ -361,7 +361,7 @@ footer a { text-decoration: none; }
           <ol class="flow" aria-label="Workload identity steps">
             <li>Pod runs as a Kubernetes service account</li>
             <li>Cluster issues a short-lived OIDC token</li>
-            <li>AWS or GCP exchanges it for a scoped role</li>
+            <li>AWS or GCP exchanges it for a scoped cloud identity</li>
             <li>No long-lived keys to leak or rotate</li>
           </ol>
         </article>
@@ -369,10 +369,10 @@ footer a { text-decoration: none; }
           <h4>Progressive delivery</h4>
           <p>A bad release reaches a few users, not all of them.</p>
           <ol class="flow" aria-label="Progressive delivery steps">
+            <li>Admission policy rejects non-compliant manifests</li>
             <li>Argo Rollouts starts a small canary</li>
-            <li>Metrics analysis checks errors and latency</li>
-            <li>Policy gates enforce the rules on every step</li>
-            <li>Promote automatically, or roll back on failure</li>
+            <li>Traffic shifts to the new version step by step</li>
+            <li>One step reverts to the last good revision</li>
           </ol>
         </article>
       </div>
