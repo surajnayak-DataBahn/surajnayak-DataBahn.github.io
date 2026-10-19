@@ -138,11 +138,13 @@ section { padding-block: clamp(4rem, 9vw, 7rem); border-top: 1px solid var(--rul
 .stats strong { display: block; font-size: clamp(2.25rem, 4.5vw, 3.25rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
 .stats span { display: block; margin-top: .5rem; color: var(--muted); font-size: .95rem; }
 @media (max-width: 800px) { .stats { grid-template-columns: 1fr 1fr; } .stats div:nth-child(3) { padding-left: 0; border-left: 0; } .stats div:nth-child(n+3) { border-top: 1px solid var(--rule); } }
-.db-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 clamp(1.5rem, 3vw, 2.5rem); }
+.db-list { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0 clamp(1.5rem, 3vw, 2.5rem); }
+.db-list li { grid-column: span 2; }
+.db-list li:nth-child(n+4) { grid-column: span 3; }
 .db-list li { padding-block: 1.25rem 1.75rem; border-top: 1px solid var(--rule); }
 .db-list h3 { font-size: 1.1rem; margin-bottom: .4rem; }
-.db-list p { color: var(--muted); font-size: .975rem; }
-@media (max-width: 1000px) { .db-list { grid-template-columns: 1fr 1fr; } }
+.db-list p { color: var(--muted); font-size: .975rem; max-width: 68ch; }
+@media (max-width: 1000px) { .db-list { grid-template-columns: 1fr 1fr; } .db-list li, .db-list li:nth-child(n+4) { grid-column: auto; } .db-list li:first-child { grid-column: 1 / -1; } }
 @media (max-width: 640px) { .db-list { grid-template-columns: 1fr; } }
 
 /* work cards */
@@ -320,15 +322,11 @@ footer a { text-decoration: none; }
         <div><strong>3</strong><span>deployment models: SaaS, customer cloud, on-prem</span></div>
       </div>
       <ul class="db-list">
-        <li><h3>Platform V2</h3><p>Designed and led an event-driven platform on Apache Pulsar. Cascading failures fell by 35%.</p></li>
-        <li><h3>One release path</h3><p>Standardised GitOps releases across all squads. With 5 core services decomposed, cross-team coordination overhead halved.</p></li>
-        <li><h3>Delivery metrics</h3><p>DORA tracking across 8 squads showed each team its bottlenecks within 30 days. Mean lead time dropped 40%.</p></li>
-        <li><h3>Environments on demand</h3><p>Set direction for APISIX, Camunda, Pulumi and Terraform. Provisioning went from hours to under 15 minutes.</p></li>
-        <li><h3>Developer portal</h3><p>Built and shipped Backstage, backed by a git catalog of services, clusters and owners that a Python generator keeps current.</p></li>
-        <li><h3>Observability and Kafka</h3><p>eBPF observability for the cloud fleet and a self-hosted Prometheus stack for customer clouds. Tuned Kafka brokers and stopped consumer autoscaling from flapping.</p></li>
-        <li><h3>Cost audit</h3><p>Led a fleet-wide cost audit across AWS and Azure that sized double-digit savings, then retired idle capacity through Terraform.</p></li>
-        <li><h3>Networking and access</h3><p>Static-IP ingress for customer allowlists and Entra ID single sign-on for platform tools, both in Terraform.</p></li>
-        <li><h3>Incident command</h3><p>Lead incident response across every deployment model and run blameless RCAs with the owning squads.</p></li>
+        <li><h3>Platform V2</h3><p>Designed and led an event-driven platform on Apache Pulsar and decomposed 5 core services. Cascading failures fell by 35%, and cross-team coordination overhead halved.</p></li>
+        <li><h3>One release path</h3><p>Standardised GitOps releases across all squads, then tracked DORA metrics so each team saw its bottlenecks within 30 days. Mean lead time dropped 40%.</p></li>
+        <li><h3>Self-service platform</h3><p>Built and shipped Backstage on a git catalog of services, clusters and owners, and set direction for APISIX, Camunda, Pulumi and Terraform. Environments went from hours to under 15 minutes.</p></li>
+        <li><h3>Observability and incident command</h3><p>eBPF observability for the cloud fleet and a self-hosted Prometheus stack for customer clouds. Tuned Kafka brokers and stopped consumer autoscaling from flapping. I lead incident response across every deployment model and run blameless RCAs with the owning squads.</p></li>
+        <li><h3>Cloud foundations in Terraform</h3><p>Led a fleet-wide cost audit across AWS and Azure that sized double-digit savings, then retired idle capacity. Added static-IP ingress for customer allowlists and Entra ID single sign-on for platform tools.</p></li>
       </ul>
     </div>
   </section>
