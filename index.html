@@ -108,6 +108,29 @@ section { padding-block: clamp(4rem, 9vw, 7rem); border-top: 1px solid var(--rul
 @media (max-width: 1000px) { .bring { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { .bring { grid-template-columns: 1fr; } }
 
+/* principles: statement left, practice right */
+.principles li { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: .5rem clamp(1.5rem, 4vw, 3rem); padding-block: 1.5rem; border-top: 1px solid var(--rule); }
+.principles li:last-child { border-bottom: 1px solid var(--rule); }
+.principles h3 { font-size: clamp(1.2rem, 2vw, 1.45rem); line-height: 1.25; }
+.principles p { color: var(--muted); }
+.principles .seen { margin-top: .5rem; font-size: .875rem; font-weight: 500; color: var(--ink); }
+@media (max-width: 800px) { .principles li { grid-template-columns: 1fr; } }
+
+/* reference designs: each flow is a real sequence, so it is an ordered list */
+.sub-head { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 3rem; align-items: end; margin: clamp(3rem, 6vw, 4.5rem) 0 1.75rem; }
+.sub-head h3 { font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.1; }
+.sub-head p { color: var(--muted); max-width: 46ch; justify-self: end; }
+.designs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem clamp(1.5rem, 3vw, 2.5rem); }
+.designs h4 { margin: 0 0 .35rem; font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
+.designs article > p { color: var(--muted); font-size: .95rem; }
+.flow { display: grid; gap: .6rem; margin-top: 1rem; }
+.flow li { position: relative; padding: .6rem .85rem; background: var(--card); border: 1px solid var(--rule); border-radius: 8px; font-size: .925rem; }
+.flow li + li::before { content: ""; position: absolute; left: 1.25rem; top: calc(-.6rem - 1px); width: 1px; height: .6rem; background: var(--muted); }
+.flow li:last-child { border-color: var(--ink); }
+@media (max-width: 1000px) { .designs { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 800px) { .sub-head { grid-template-columns: 1fr; } .sub-head p { justify-self: start; } }
+@media (max-width: 640px) { .designs { grid-template-columns: 1fr; } }
+
 /* DataBahn */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--rule); margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
 .stats div { padding: 1.5rem 1.5rem 1.5rem 0; }
@@ -220,6 +243,7 @@ footer a { text-decoration: none; }
     <nav class="nav" aria-label="Primary">
       <a href="#about">About</a>
       <a href="#databahn">DataBahn</a>
+      <a href="#principles">How I work</a>
       <a href="#experience">Experience</a>
       <a href="#work">Work</a>
       <a href="#certifications">Certifications</a>
@@ -239,6 +263,7 @@ footer a { text-decoration: none; }
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#databahn">DataBahn</a></li>
+      <li><a href="#principles">How I work</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#work">Work</a></li>
       <li><a href="#certifications">Certifications</a></li>
@@ -253,7 +278,7 @@ footer a { text-decoration: none; }
     <div>
       <h1>Suraj Nayak</h1>
       <p class="role">Principal Engineer, Site Reliability Engineering at DataBahn</p>
-      <p class="lede">I run reliability and releases for a Kubernetes platform that ships as SaaS, into customer clouds and on-prem. Ten years on AWS, GCP and Azure, before DataBahn at Roku, AiDash, Cargill and Microland.</p>
+      <p class="lede">I set platform and reliability direction for DataBahn’s engineering org: one release path, one observability stack and one incident practice for a Kubernetes platform that ships as SaaS, into customer clouds and on-prem. Ten years on AWS, GCP and Azure, before DataBahn at Roku, AiDash, Cargill and Microland.</p>
       <div class="ctas">
         <a class="btn primary" href="mailto:surajnayak88@gmail.com">Email me</a>
         <a class="btn" href="Suraj_Nayak.pdf" download>Download résumé</a>
@@ -303,8 +328,54 @@ footer a { text-decoration: none; }
         <li><h3>Observability and Kafka</h3><p>eBPF observability for the cloud fleet and a self-hosted Prometheus stack for customer clouds. Tuned Kafka brokers and stopped consumer autoscaling from flapping.</p></li>
         <li><h3>Cost audit</h3><p>Led a fleet-wide cost audit across AWS and Azure that sized double-digit savings, then retired idle capacity through Terraform.</p></li>
         <li><h3>Networking and access</h3><p>Static-IP ingress for customer allowlists and Entra ID single sign-on for platform tools, both in Terraform.</p></li>
-        <li><h3>Incident command</h3><p>Lead incident response and write blameless RCAs that end in a platform fix, not only a runbook.</p></li>
+        <li><h3>Incident command</h3><p>Lead incident response across every deployment model and run blameless RCAs with the owning squads.</p></li>
       </ul>
+    </div>
+  </section>
+
+  <section id="principles">
+    <div class="wrap">
+      <div class="sec-head"><h2>How I work</h2><p>The principles I bring to every platform, and the designs that put them into practice.</p></div>
+      <ul class="principles">
+        <li><h3>One paved path beats ten exceptions</h3><div><p>I make the standard way the easiest way. Teams adopt a path that saves them time, so I invest in templates, shared pipelines and one release flow instead of reviewing every bespoke setup.</p><p class="seen">Seen in: the DataBahn release path, the LaunchPad portal, the Roku mesh onboarding pipeline</p></div></li>
+        <li><h3>Every incident ends in a platform fix</h3><div><p>A runbook only helps the next on-call engineer. I close the loop with a change to the platform, so the same class of failure cannot recur.</p><p class="seen">Seen in: DataBahn incident command, the Cargill DR and chaos programme</p></div></li>
+        <li><h3>Identity, not secrets</h3><div><p>Long-lived keys are an incident waiting to happen. I replace them with workload identity and single sign-on, and keep the access model in code where it can be reviewed.</p><p class="seen">Seen in: workload identity at Roku, Entra ID single sign-on at DataBahn</p></div></li>
+        <li><h3>Measure delivery before changing it</h3><div><p>I start with DORA metrics and real bottleneck data, then change the process. This keeps platform work tied to outcomes that teams and leadership can both see.</p><p class="seen">Seen in: DORA tracking at DataBahn, delivery metrics in LaunchPad</p></div></li>
+        <li><h3>Cost is a reliability signal</h3><div><p>I show each team what it spends, set guardrails, and size capacity from real usage. Waste and fragility often have the same root cause.</p><p class="seen">Seen in: the DataBahn cost audit, the AiDash FinOps engine</p></div></li>
+      </ul>
+      <div class="sub-head"><h3>Designs I made the standard</h3><p>Three reference designs I set as the default way of working for the teams I supported.</p></div>
+      <div class="designs">
+        <article>
+          <h4>One release path</h4>
+          <p>Every service ships one way, to every deployment.</p>
+          <ol class="flow" aria-label="Release path steps">
+            <li>Release or hotfix branch is merged</li>
+            <li>Merge mints a versioned tag</li>
+            <li>Argo CD syncs the tag to each deployment</li>
+            <li>SaaS, customer cloud and on-prem run the same release</li>
+          </ol>
+        </article>
+        <article>
+          <h4>Keyless workload access</h4>
+          <p>Pods reach cloud APIs with no stored credentials.</p>
+          <ol class="flow" aria-label="Workload identity steps">
+            <li>Pod runs as a Kubernetes service account</li>
+            <li>Cluster issues a short-lived OIDC token</li>
+            <li>AWS or GCP exchanges it for a scoped role</li>
+            <li>No long-lived keys to leak or rotate</li>
+          </ol>
+        </article>
+        <article>
+          <h4>Progressive delivery</h4>
+          <p>A bad release reaches a few users, not all of them.</p>
+          <ol class="flow" aria-label="Progressive delivery steps">
+            <li>Argo Rollouts starts a small canary</li>
+            <li>Metrics analysis checks errors and latency</li>
+            <li>Policy gates enforce the rules on every step</li>
+            <li>Promote automatically, or roll back on failure</li>
+          </ol>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -322,7 +393,7 @@ footer a { text-decoration: none; }
           </div>
         </article>
         <article class="job">
-          <div><p class="when">02/2024 – 05/2026</p><p class="ctx">Streaming, about $4B revenue. Senior platform IC.</p></div>
+          <div><p class="when">02/2024 – 05/2026</p><p class="ctx">Streaming, about $4B revenue. Senior platform IC in an 800-person engineering org.</p></div>
           <div>
             <h3>Senior Software Engineer, Platform &amp; Infrastructure</h3>
             <p class="co">Roku</p>
@@ -501,6 +572,7 @@ footer a { text-decoration: none; }
   <ul id="k-list">
     <li><button data-go="#about">What I bring <span>Section</span></button></li>
     <li><button data-go="#databahn">Now at DataBahn <span>Section</span></button></li>
+    <li><button data-go="#principles">How I work <span>Section</span></button></li>
     <li><button data-go="#experience">Experience <span>Section</span></button></li>
     <li><button data-go="#work">Selected initiatives <span>Section</span></button></li>
     <li><button data-go="#certifications">Certifications <span>Section</span></button></li>
